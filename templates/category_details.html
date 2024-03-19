@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category.title }}</title>
+</head>
+<body>
+    <h1>{{ category.title }}</h1>
+    <p>{{ category.description }}</p>
+    <p>Status: {{ category.status }}</p>
+    <p>Created On: {{ category.created_on }}</p>
+    <p>Modified On: {{ category.modified_on }}</p>
+
+    <!-- Display parent category if exists -->
+    {% if category.parent %}
+        <p>Parent Category: {{ category.parent.title }}</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ feed.question }}</title>
+</head>
+<body>
+    <h1>{{ feed.question }}</h1>
+    <p>{{ feed.answer }}</p>
+    <p>Level: {{ feed.level }}</p>
+    <p>Status: {{ feed.status }}</p>
+    <p>Created On: {{ feed.created_on }}</p>
+    <p>Modified On: {{ feed.modified_on }}</p>
+
+    <!-- Display categories -->
+    <ul>
+        {% for category in feed.categories.all %}
+            <li>{{ category.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
