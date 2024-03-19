@@ -30,7 +30,7 @@ class Comment(models.Model):
 
     def __str__(self):
         if self.user:
-            return f'Comment by {self.user.username} on {self.feed.question}'
+            return f'{self.created_at} Comment by {self.user.username} on {self.feed.question}'
         else:
             return f'Anonymous Comment on {self.feed.question}'
 

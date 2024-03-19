@@ -18,6 +18,7 @@ class Feed(models.Model):
         ('published', 'Published'),
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
+    ordinal = models.IntegerField(default=0) 
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
 

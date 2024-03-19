@@ -27,8 +27,8 @@ class FeedAdminForm(forms.ModelForm):
 
 class FeedAdmin(admin.ModelAdmin):
     form = FeedAdminForm
-    list_display = ('question', 'user', 'created_on', 'modified_on', 'status')
-    list_filter = ('status',)
+    list_display = ('question', 'user', 'ordinal','created_on', 'modified_on', 'status')
+    list_filter = ('status','ordinal')
     search_fields = ('question', 'answer')
     readonly_fields = ('created_on', 'modified_on')
 

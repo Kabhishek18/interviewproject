@@ -1,21 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{{ feed.question }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Feeds with Comments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 5px;
+        }
+        strong, em {
+            font-weight: bold;
+        }
+        em {
+            font-style: italic;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>{{ feed.question }}</h1>
-    <p>{{ feed.answer }}</p>
-    <p>Level: {{ feed.level }}</p>
-    <p>Status: {{ feed.status }}</p>
-    <p>Created On: {{ feed.created_on }}</p>
-    <p>Modified On: {{ feed.modified_on }}</p>
+    <div class="container">
+        {% for item in feeds_with_comments %}
+            <article>
+                <header>
+                    <h1>{{ item.feed.question }}</h1>
+                    <p>{{ item.feed.answer | safe }}</p>
+                    <p><strong>Level:</strong> {{ item.feed.level }}</p>
+                    <p><strong>Status:</strong> {{ item.feed.status }}</p>
+                    <p><strong>Created On:</strong> {{ item.feed.created_on }}</p>
+                    <p><strong>Modified On:</strong> {{ item.feed.modified_on }}</p>
 
-    <!-- Display categories -->
-    <ul>
-        {% for category in feed.categories.all %}
-            <li>{{ category.title }}</li>
+                    <!-- Display categories -->
+                    <p><strong>Categories:</strong></p>
+                    <ul>
+                        {% for category in item.feed.categories.all %}
+                            <li>{{ category.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </header>
+
+                <section>
+                    <h2>Comments</h2>
+                    <ul>
+                        {% for comment_with_replies in item.comments_with_replies %}
+                            <li>
+                                {% if comment_with_replies.comment.user %}
+                                    <strong>{{ comment_with_replies.comment.user.username }}:</strong>
+                                {% else %}
+                                    <em>Anonymous:</em>
+                                {% endif %}
+                                {{ comment_with_replies.comment.text }}
+                                <ul>
+                                    {% for reply in comment_with_replies.replies %}
+                                        <li>
+                                            {% if reply.user %}
+                                                <strong>{{ reply.user.username }}:</strong>
+                                            {% else %}
+                                                <em>Anonymous:</em>
+                                            {% endif %}
+                                            {{ reply.text }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% empty %}
+                            <li>No comments yet.</li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            </article>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
         {% endfor %}
-    </ul>
+    </div>
 </body>
 </html>
