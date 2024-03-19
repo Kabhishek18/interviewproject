@@ -1,5 +1,8 @@
 asgiref==3.7.2
 Django
+django-autoslug==1.9.9
+django-ckeditor==6.7.1
+django-js-asset==2.2.0
 djangorestframework==3.14.0
 pytz==2024.1
 sqlparse==0.4.4
